@@ -56,15 +56,15 @@ chartGroup.selectAll("circle")
   .attr("opacity", 0.6)
 
     chartGroup.selectAll("circleText")
-              .data(Health)
-              .enter()
-              .append("text")
-              .attr("dx",d => xlinearScale(d.poverty))
-              .attr("dy",d => ylinearScale(d.healthcare))
-              .text(d=>d.abbr) 
-              .style("fill","white")
-              .style("font-size",10)
-              .style("font-weight","bold");
+  .data(Health)
+  .enter()
+  .append("text")
+  .attr("dx",d => xlinearScale(d.poverty))
+  .attr("dy",d => ylinearScale(d.healthcare))
+  .text(d=>d.abbr) 
+  .style("fill","white")
+  .style("font-size",10)
+  .style("font-weight","bold");
 //--------------------------------------------------------------------------------------
     
     // 5. Ad axes lables
