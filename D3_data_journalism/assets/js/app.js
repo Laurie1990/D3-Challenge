@@ -36,22 +36,20 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 
-    // Step 5: Create the scales for the chart.
+    // 3. Create axes
     // ========================================
     xlinearScale = d3.scaleLinear().domain([d3.min(Health,d=>d.poverty)-0.5, d3.max(Health,d=>d.poverty)+1]).range([0,chartwidth]);
     ylinearScale = d3.scaleLinear().domain([d3.min(Health,d=>d.healthcare)-2, d3.max(Health,d=>d.healthcare)+1]).range([chartheight,0]);
      
-    // Step 6: Create the axes.
-    // ========================
     var xAxis = d3.axisBottom(xlinearScale);
     var yAxis   = d3.axisLeft(ylinearScale);
 
-    // Step 7: Append the axes to the chartGroup.
+    // 4. Append axis to chartGroup.
     // ==========================================
     chartGroup.append("g").attr("transform",`translate(0, ${chartheight})`).call(xAxis);
     chartGroup.append("g").call(yAxis);
 
-    // Step 10: Add circles.
+    // 5. Add circles and text
     // ====================
     chartGroup.selectAll("circle")
                       .data(Health)
@@ -63,8 +61,6 @@ var chartGroup = svg.append("g")
                       .attr("fill", "blue")
                       .attr("opacity", 0.6)
 
-    // Step 11: Add text in circles.
-    // =============================
     chartGroup.selectAll("circleText")
               .data(Health)
               .enter()
@@ -76,7 +72,7 @@ var chartGroup = svg.append("g")
               .style("font-size",10)
               .style("font-weight","bold");
     
-    // Step 12: Create and append axes labels.
+    // 6. Ad axes lables
     //========================================
     chartGroup.append("text")
     .attr("transform", `translate(${chartwidth / 2}, ${chartheight + margin.top + 25})`)
