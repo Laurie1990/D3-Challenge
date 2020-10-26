@@ -1,5 +1,5 @@
 // @TODO: YOUR CODE HERE!
-//1. Set-up chart
+//Set-up 
 var svgWidth = 960;
 var svgHeight = 500;
 
@@ -13,3 +13,12 @@ var margin = {
 // Set chart width and height
 var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
+
+var svg = d3
+  .select("#scatter")
+  .append("svg")
+  .attr("width", svgWidth)
+  .attr("height", svgHeight);
+
+  var chartGroup = svg.append("g")
+  .attr("transform", `translate(${margin.left}, ${margin.top})`);
