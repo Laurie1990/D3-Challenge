@@ -32,7 +32,8 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 //-----------------------------------------------------------------------------------
-    // 3. Create axes
+
+// 3. Create axes
 xlinearScale = d3.scaleLinear().domain([d3.min(Health,d=>d.poverty)-0.5, d3.max(Health,d=>d.poverty)+1]).range([0,chartwidth]);
 ylinearScale = d3.scaleLinear().domain([d3.min(Health,d=>d.healthcare)-2, d3.max(Health,d=>d.healthcare)+1]).range([chartheight,0]);
      
@@ -44,7 +45,7 @@ chartGroup.append("g").call(yAxis);
 
 //-----------------------------------------------------------------------------------------
 
-    // 4. Add circles and text
+// 4. Add circles and text
 chartGroup.selectAll("circle")
   .data(Health)
   .enter()
@@ -67,7 +68,7 @@ chartGroup.selectAll("circleText")
   .style("font-weight","bold");
 //--------------------------------------------------------------------------------------
     
-    // 5. Ad axes lables
+// 5. Ad axes lables
 chartGroup.append("text")
   .attr("transform", `translate(${chartwidth / 2}, ${chartheight + margin.top + 25})`)
   .attr("class", "axisText")
@@ -75,14 +76,14 @@ chartGroup.append("text")
   .style("font-size", "20px")
   .style("font-weight","bold");
 
-    chartGroup.append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0 - margin.left)
-    .attr("x", 0 - (chartheight / 2))
-    .attr("dy", "1em")
-    .attr("class", "axisText")
-    .text("Without health insurance (%)")
-    .style("font-size", "20px")
-    .style("font-weight","bold");
+chartGroup.append("text")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 0 - margin.left)
+  .attr("x", 0 - (chartheight / 2))
+  .attr("dy", "1em")
+  .attr("class", "axisText")
+  .text("Without health insurance (%)")
+  .style("font-size", "20px")
+  .style("font-weight","bold");
 //----------------------------------------------------------------------------------------
 });   
