@@ -1,21 +1,31 @@
-// Step 1: Set up our chart.
+//
+// 
+// 1. Read csv
+// ===================================
+d3.csv("assets/data/data.csv").then(function(NewsPaper) {
+
+    NewsPaper.forEach(d => {
+        d.poverty = +d.poverty;
+        d.healthcare = +d.healthcare;
+        d.abbr = d.abbr;
+    }); 
+
+
+//2. Set-out layout
 //= ========================
-var svgWidth = 960;
-var svgHeight = 500;
+var svgWidth = 900;
+var svgHeight = 600;
 
 var margin = {
-  top: 20,
-  right: 40,
-  bottom: 60, 
+  top: 30,
+  bottom: 70, 
+  right: 50,
   left: 50
 };
 
 var chartwidth = svgWidth - margin.left - margin.right;
 var chartheight = svgHeight - margin.top - margin.bottom;
 
-// Step 2: Create an SVG wrapper, append an SVG group that will hold our chart,
-// and shift the latter by left and top margins.
-// =============================================
 var svg = d3
   .select("#scatter")
   .append("svg")
@@ -25,18 +35,7 @@ var svg = d3
 var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-// Step 3:
-// Import data from the data.csv file.
-// ===================================
-d3.csv("assets/data/data.csv").then(function(NewsPaper) {
-    
-    //Step 4: Format the data and convert the selected columns to numeric from string.
-    // ===============================================================================
-    NewsPaper.forEach(d => {
-        d.poverty = +d.poverty;
-        d.healthcare = +d.healthcare;
-        // console.log(d.abbr)
-    }); 
+
     // Step 5: Create the scales for the chart.
     // ========================================
     xlinearScale = d3.scaleLinear().domain([d3.min(NewsPaper,d=>d.poverty)-0.5, d3.max(NewsPaper,d=>d.poverty)+1]).range([0,chartwidth]);
@@ -44,15 +43,15 @@ d3.csv("assets/data/data.csv").then(function(NewsPaper) {
      
     // Step 6: Create the axes.
     // ========================
-    var bottomAxis = d3.axisBottom(xlinearScale);
-    var leftAxis   = d3.axisLeft(ylinearScale);
+    var xAxis = d3.axisBottom(xlinearScale);
+    var yAxis   = d3.axisLeft(ylinearScale);
 
     // Step 7: Append the axes to the chartGroup.
     // ==========================================
     //Add x-axis
-    chartGroup.append("g").attr("transform",`translate(0, ${chartheight})`).call(bottomAxis);
+    chartGroup.append("g").attr("transform",`translate(0, ${chartheight})`).call(xAxis);
     //Add y-axis
-    chartGroup.append("g").call(leftAxis);
+    chartGroup.append("g").call(yAxis);
 
     // Step 10: Add circles.
     // ====================
@@ -63,7 +62,7 @@ d3.csv("assets/data/data.csv").then(function(NewsPaper) {
                       .attr("cx",d => xlinearScale(d.poverty))
                       .attr("cy",d => ylinearScale(d.healthcare))
                       .attr("r",20)
-                      .attr("fill", "pink")
+                      .attr("fill", "blue")
                       .attr("opacity", 0.9)
 
     // Step 11: Add text in circles.
@@ -86,7 +85,7 @@ d3.csv("assets/data/data.csv").then(function(NewsPaper) {
     chartGroup.append("text")
     .attr("transform", `translate(${chartwidth / 2}, ${chartheight + margin.top + 25})`)
     .attr("class", "axisText")
-    .text("In Poverty (%)")
+    .text("Below poverty line (%)")
     .style("text-anchor", "middle")
     .style("font-family", "Times New Roman")
     .style("font-size", "20px")
@@ -98,7 +97,7 @@ d3.csv("assets/data/data.csv").then(function(NewsPaper) {
     .attr("x", 0 - (chartheight / 2))
     .attr("dy", "1em")
     .attr("class", "axisText")
-    .text("Lacks in Healthcare (%)")
+    .text("Without health insurance (%)")
     .style("text-anchor", "middle")
     .style("font-family", "Times New Roman")
     .style("font-size", "20px")
