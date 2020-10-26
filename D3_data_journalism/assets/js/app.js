@@ -2,9 +2,9 @@
 // 
 // 1. Read csv
 // ===================================
-d3.csv("assets/data/data.csv").then(function(NewsPaper) {
+d3.csv("assets/data/data.csv").then(function(Health) {
 
-    NewsPaper.forEach(d => {
+  Health.forEach(d => {
         d.poverty = +d.poverty;
         d.healthcare = +d.healthcare;
         d.abbr = d.abbr;
@@ -38,8 +38,8 @@ var chartGroup = svg.append("g")
 
     // Step 5: Create the scales for the chart.
     // ========================================
-    xlinearScale = d3.scaleLinear().domain([d3.min(NewsPaper,d=>d.poverty)-0.5, d3.max(NewsPaper,d=>d.poverty)+1]).range([0,chartwidth]);
-    ylinearScale = d3.scaleLinear().domain([d3.min(NewsPaper,d=>d.healthcare)-2, d3.max(NewsPaper,d=>d.healthcare)+1]).range([chartheight,0]);
+    xlinearScale = d3.scaleLinear().domain([d3.min(Health,d=>d.poverty)-0.5, d3.max(Health,d=>d.poverty)+1]).range([0,chartwidth]);
+    ylinearScale = d3.scaleLinear().domain([d3.min(Health,d=>d.healthcare)-2, d3.max(Health,d=>d.healthcare)+1]).range([chartheight,0]);
      
     // Step 6: Create the axes.
     // ========================
@@ -48,36 +48,32 @@ var chartGroup = svg.append("g")
 
     // Step 7: Append the axes to the chartGroup.
     // ==========================================
-    //Add x-axis
     chartGroup.append("g").attr("transform",`translate(0, ${chartheight})`).call(xAxis);
-    //Add y-axis
     chartGroup.append("g").call(yAxis);
 
     // Step 10: Add circles.
     // ====================
     chartGroup.selectAll("circle")
-                      .data(NewsPaper)
+                      .data(Health)
                       .enter()
                       .append("circle")
                       .attr("cx",d => xlinearScale(d.poverty))
                       .attr("cy",d => ylinearScale(d.healthcare))
                       .attr("r",20)
                       .attr("fill", "blue")
-                      .attr("opacity", 0.9)
+                      .attr("opacity", 0.6)
 
     // Step 11: Add text in circles.
     // =============================
     chartGroup.selectAll("circleText")
-              .data(NewsPaper)
+              .data(Health)
               .enter()
               .append("text")
               .attr("dx",d => xlinearScale(d.poverty))
               .attr("dy",d => ylinearScale(d.healthcare))
               .text(d=>d.abbr) 
-              .style("text-anchor", "middle")
               .style("fill","white")
-              .style("font-size",".8em")
-              .style("font-family", "Times New Roman")
+              .style("font-size",10)
               .style("font-weight","bold");
     
     // Step 12: Create and append axes labels.
@@ -86,8 +82,6 @@ var chartGroup = svg.append("g")
     .attr("transform", `translate(${chartwidth / 2}, ${chartheight + margin.top + 25})`)
     .attr("class", "axisText")
     .text("Below poverty line (%)")
-    .style("text-anchor", "middle")
-    .style("font-family", "Times New Roman")
     .style("font-size", "20px")
     .style("font-weight","bold");
 
@@ -98,8 +92,6 @@ var chartGroup = svg.append("g")
     .attr("dy", "1em")
     .attr("class", "axisText")
     .text("Without health insurance (%)")
-    .style("text-anchor", "middle")
-    .style("font-family", "Times New Roman")
     .style("font-size", "20px")
     .style("font-weight","bold");
 
