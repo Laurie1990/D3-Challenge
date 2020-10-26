@@ -1,7 +1,4 @@
-//
-// 
-// 1. Read csv
-// ===================================
+// 1. Read csv, parse data
 d3.csv("assets/data/data.csv").then(function(Health) {
 
   Health.forEach(d => {
@@ -12,7 +9,6 @@ d3.csv("assets/data/data.csv").then(function(Health) {
 
 
 //2. Set-out layout
-//= ========================
 var svgWidth = 1000;
 var svgHeight = 600;
 
@@ -37,7 +33,6 @@ var chartGroup = svg.append("g")
 
 
     // 3. Create axes
-    // ========================================
     xlinearScale = d3.scaleLinear().domain([d3.min(Health,d=>d.poverty)-0.5, d3.max(Health,d=>d.poverty)+1]).range([0,chartwidth]);
     ylinearScale = d3.scaleLinear().domain([d3.min(Health,d=>d.healthcare)-2, d3.max(Health,d=>d.healthcare)+1]).range([chartheight,0]);
      
@@ -45,21 +40,19 @@ var chartGroup = svg.append("g")
     var yAxis   = d3.axisLeft(ylinearScale);
 
     // 4. Append axis to chartGroup.
-    // ==========================================
     chartGroup.append("g").attr("transform",`translate(0, ${chartheight})`).call(xAxis);
     chartGroup.append("g").call(yAxis);
 
     // 5. Add circles and text
-    // ====================
     chartGroup.selectAll("circle")
-                      .data(Health)
-                      .enter()
-                      .append("circle")
-                      .attr("cx",d => xlinearScale(d.poverty))
-                      .attr("cy",d => ylinearScale(d.healthcare))
-                      .attr("r",20)
-                      .attr("fill", "blue")
-                      .attr("opacity", 0.6)
+              .data(Health)
+              .enter()
+              .append("circle")
+              .attr("cx",d => xlinearScale(d.poverty))
+              .attr("cy",d => ylinearScale(d.healthcare))
+              .attr("r",20)
+              .attr("fill", "blue")
+              .attr("opacity", 0.6)
 
     chartGroup.selectAll("circleText")
               .data(Health)
@@ -73,7 +66,6 @@ var chartGroup = svg.append("g")
               .style("font-weight","bold");
     
     // 6. Ad axes lables
-    //========================================
     chartGroup.append("text")
     .attr("transform", `translate(${chartwidth / 2}, ${chartheight + margin.top + 25})`)
     .attr("class", "axisText")
