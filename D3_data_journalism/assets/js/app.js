@@ -46,15 +46,29 @@ var Graph = svg.append("c")
 
   
   //Create circles
-  chartGroup.selectAll("circle")
+  Graph.selectAll("circle")
     .data(GetData)
     .enter()
     .append("circle")
-    .attr("x",x => xtick(x.poverty))
-    .attr("y",x => ytick(x.healthcare))
+    .attr("cx",x => xtick(x.poverty))
+    .attr("cy",x => ytick(x.healthcare))
     .attr("r",20)
     .attr("fill", "blue")
     .attr("opacity", 0.5)
+
+    //Add text to circles
+    Graph.selectAll("circleText")
+    .data(GetData)
+    .enter()
+    .append("text")
+    .attr("dx",x => xlinearScale(x.poverty))
+    .attr("dy",x => ylinearScale(x.healthcare))
+    .text(x=>x.abbr) 
+    .style("text-anchor", "middle")
+    .style("fill","white")
+    .style("font-size",10)
+    .style("font-family", "Times New Roman")
+    .style("font-weight","bold");
 
       
 
