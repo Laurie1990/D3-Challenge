@@ -39,21 +39,21 @@ ylinearScale = d3.scaleLinear().domain([d3.min(Health,d=>d.healthcare)-2, d3.max
 var xAxis = d3.axisBottom(xlinearScale);
 var yAxis   = d3.axisLeft(ylinearScale);
 
-    chartGroup.append("g").attr("transform",`translate(0, ${chartheight})`).call(xAxis);
-    chartGroup.append("g").call(yAxis);
+chartGroup.append("g").attr("transform",`translate(0, ${chartheight})`).call(xAxis);
+chartGroup.append("g").call(yAxis);
 
 //-----------------------------------------------------------------------------------------
 
     // 4. Add circles and text
-    chartGroup.selectAll("circle")
-              .data(Health)
-              .enter()
-              .append("circle")
-              .attr("cx",d => xlinearScale(d.poverty))
-              .attr("cy",d => ylinearScale(d.healthcare))
-              .attr("r",20)
-              .attr("fill", "blue")
-              .attr("opacity", 0.6)
+chartGroup.selectAll("circle")
+  .data(Health)
+  .enter()
+  .append("circle")
+  .attr("cx",d => xlinearScale(d.poverty))
+  .attr("cy",d => ylinearScale(d.healthcare))
+  .attr("r",20)
+  .attr("fill", "blue")
+  .attr("opacity", 0.6)
 
     chartGroup.selectAll("circleText")
               .data(Health)
