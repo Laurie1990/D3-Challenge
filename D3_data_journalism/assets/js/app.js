@@ -1,5 +1,15 @@
 // @TODO: YOUR CODE HERE!
-//Set-up 
+
+//Import and format data
+
+d3.csv("assets/data/data.csv").then(function(GetData) {
+   GetData.forEach(x => {
+        x.poverty = +x.poverty;
+        x.healthcare = +x.healthcare;
+    });
+
+
+//Set-up page
 var svgWidth = 960;
 var svgHeight = 500;
 
