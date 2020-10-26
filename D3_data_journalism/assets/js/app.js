@@ -31,8 +31,24 @@ var svg = d3
   .attr("height", svgHeight);
 
 //Create graphs
-var Charts = svg.append("c")
+var Graph = svg.append("c")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
   xtick = d3.scaleLinear().domain([d3.min(GetData,x=>x.poverty)-0.5, d3.max(GetData,x=>x.poverty)+1]).range([0,chartwidth]);
   ytick = d3.scaleLinear().domain([d3.min(GetData,x=>x.healthcare)-2, d3.max(GetData,x=>x.healthcare)+1]).range([chartheight,0]);
+
+  var xAxis = d3.axisBottom(xtick);
+  var yAxis   = d3.axisLeft(ytick);
+
+  Graph.append("c").attr("transform",`translate(0, ${chartheight})`).call(xAxis);
+  Graph.append("c").call(yAxis);
+
+  chartGroup.selectAll("dots")
+  .data(GetData)
+  .enter()
+  .append("bubble")
+  .attr("x",x => xtick(x.poverty))
+  .attr("y",x => ytick(x.healthcare))
+  .attr("r",20)
+  .attr("fill", "blue")
+  .attr("opacity", 0.5)
