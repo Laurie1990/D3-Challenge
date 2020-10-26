@@ -55,7 +55,7 @@ chartGroup.selectAll("circle")
   .attr("fill", "blue")
   .attr("opacity", 0.6)
 
-    chartGroup.selectAll("circleText")
+chartGroup.selectAll("circleText")
   .data(Health)
   .enter()
   .append("text")
@@ -68,12 +68,12 @@ chartGroup.selectAll("circle")
 //--------------------------------------------------------------------------------------
     
     // 5. Ad axes lables
-    chartGroup.append("text")
-    .attr("transform", `translate(${chartwidth / 2}, ${chartheight + margin.top + 25})`)
-    .attr("class", "axisText")
-    .text("Below poverty line (%)")
-    .style("font-size", "20px")
-    .style("font-weight","bold");
+chartGroup.append("text")
+  .attr("transform", `translate(${chartwidth / 2}, ${chartheight + margin.top + 25})`)
+  .attr("class", "axisText")
+  .text("Below poverty line (%)")
+  .style("font-size", "20px")
+  .style("font-weight","bold");
 
     chartGroup.append("text")
     .attr("transform", "rotate(-90)")
