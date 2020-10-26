@@ -33,11 +33,11 @@ var chartGroup = svg.append("g")
 
 //-----------------------------------------------------------------------------------
     // 3. Create axes
-    xlinearScale = d3.scaleLinear().domain([d3.min(Health,d=>d.poverty)-0.5, d3.max(Health,d=>d.poverty)+1]).range([0,chartwidth]);
-    ylinearScale = d3.scaleLinear().domain([d3.min(Health,d=>d.healthcare)-2, d3.max(Health,d=>d.healthcare)+1]).range([chartheight,0]);
+xlinearScale = d3.scaleLinear().domain([d3.min(Health,d=>d.poverty)-0.5, d3.max(Health,d=>d.poverty)+1]).range([0,chartwidth]);
+ylinearScale = d3.scaleLinear().domain([d3.min(Health,d=>d.healthcare)-2, d3.max(Health,d=>d.healthcare)+1]).range([chartheight,0]);
      
-    var xAxis = d3.axisBottom(xlinearScale);
-    var yAxis   = d3.axisLeft(ylinearScale);
+var xAxis = d3.axisBottom(xlinearScale);
+var yAxis   = d3.axisLeft(ylinearScale);
 
     chartGroup.append("g").attr("transform",`translate(0, ${chartheight})`).call(xAxis);
     chartGroup.append("g").call(yAxis);
