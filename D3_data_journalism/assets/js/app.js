@@ -6,7 +6,8 @@ d3.csv("assets/data/data.csv").then(function(GetData) {
    GetData.forEach(x => {
         x.poverty = +x.poverty;
         x.healthcare = +x.healthcare;
-    })});
+        x.state=x.abbr;
+    });
 
 
 //Set-up page
@@ -43,12 +44,21 @@ var Graph = svg.append("c")
   Graph.append("c").attr("transform",`translate(0, ${chartheight})`).call(xAxis);
   Graph.append("c").call(yAxis);
 
-  chartGroup.selectAll("dots")
-  .data(GetData)
-  .enter()
-  .append("bubble")
-  .attr("x",x => xtick(x.poverty))
-  .attr("y",x => ytick(x.healthcare))
-  .attr("r",20)
-  .attr("fill", "blue")
-  .attr("opacity", 0.5)
+  
+  //Create circles
+  chartGroup.selectAll("circle")
+    .data(GetData)
+    .enter()
+    .append("circle")
+    .attr("x",x => xtick(x.poverty))
+    .attr("y",x => ytick(x.healthcare))
+    .attr("r",20)
+    .attr("fill", "blue")
+    .attr("opacity", 0.5)
+
+      
+
+
+
+
+});
