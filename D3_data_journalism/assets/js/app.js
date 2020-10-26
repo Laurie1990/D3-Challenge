@@ -13,7 +13,7 @@ d3.csv("assets/data/data.csv").then(function(Health) {
 
 //2. Set-out layout
 //= ========================
-var svgWidth = 900;
+var svgWidth = 1000;
 var svgHeight = 600;
 
 var margin = {
